@@ -1,5 +1,7 @@
+
+
 SELECT 
   CURRENT_VERSION() as dbt_version,
-  CURRENT_DATABASE() as CURRENT_DATABASE,
-  CURRENT_SCHEMA() as CURRENT_SCHEMA,
-  CURRENT_WAREHOUSE() as CURRENT_WAREHOUSE
+  CURRENT_DATABASE() as current_database,
+  CURRENT_SCHEMA() as current_schema,
+  CURRENT_WAREHOUSE() as current_warehouse
