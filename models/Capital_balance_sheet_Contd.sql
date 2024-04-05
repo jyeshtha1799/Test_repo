@@ -1,6 +1,3 @@
-
-
-
 SELECT
     CONCAT(
         SUBSTRING(NONE_NONE, 1, 6), 
@@ -20,6 +17,23 @@ SELECT
     GOODWILL_NONE AS IntangibleAssets_GoodWill,
     MORTGAGE_SERVICING_RIGHTS_NONE AS IntangibleAssets_MortgageServicingRights,
     OTHER_INTANGIBLE_ASSETS_NONE AS IntangibleAssets_OtherAssets,
-    NONE_TOTAL_INTANGIBLE_ASSETS AS TotalIntangibleAssets
-FROM {{ source('raw_data_source', 'CAPITAL_AND_OTHER_SELECTED_BALANCE_SHEET_ITEMS_CONTINUED') }}
-
+    NONE_TOTAL_INTANGIBLE_ASSETS AS TotalIntangibleAssets,
+    CASE 
+        WHEN CONCAT(
+                SUBSTRING(NONE_NONE, 1, 6), 
+                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' '), 
+                NONE_NONE_1
+            ) = 'Sep 30 2023' THEN '3Q23'
+        WHEN CONCAT(
+                SUBSTRING(NONE_NONE, 1, 6), 
+                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' '), 
+                NONE_NONE_1
+            ) = 'Jun 30 2023' THEN '2Q23'
+        WHEN CONCAT(
+                SUBSTRING(NONE_NONE, 1, 6), 
+                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' '), 
+                NONE_NONE_1
+            ) = 'Mar 31 2023' THEN '1Q23'
+    END AS Quarters
+FROM 
+    {{ source('raw_data_source', 'CAPITAL_AND_OTHER_SELECTED_BALANCE_SHEET_ITEMS_CONTINUED') }}
