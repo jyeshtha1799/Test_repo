@@ -17,11 +17,11 @@ SELECT
     GOODWILL_NONE AS IntangibleAssets_GoodWill,
     MORTGAGE_SERVICING_RIGHTS_NONE AS IntangibleAssets_MortgageServicingRights,
     OTHER_INTANGIBLE_ASSETS_NONE AS IntangibleAssets_OtherAssets,
-    NONE_TOTAL_INTANGIBLE_ASSETS AS TotalIntangibleAssets,
+      NONE_TOTAL_INTANGIBLE_ASSETS AS TotalIntangibleAssets,
     CASE 
         WHEN CONCAT(
                 SUBSTRING(NONE_NONE, 1, 6), 
-                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' ')
+                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' '),
                 NONE_NONE_1
             ) = 'Sep 30 2023' THEN '3Q23'
         WHEN CONCAT(
