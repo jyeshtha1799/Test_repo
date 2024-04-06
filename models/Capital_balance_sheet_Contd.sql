@@ -21,7 +21,7 @@ SELECT
     CASE 
         WHEN CONCAT(
                 SUBSTRING(NONE_NONE, 1, 6), 
-                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' '), 
+                REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' ')
                 NONE_NONE_1
             ) = 'Sep 30 2023' THEN '3Q23'
         WHEN CONCAT(
