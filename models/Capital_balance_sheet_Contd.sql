@@ -17,7 +17,7 @@ SELECT
     GOODWILL_NONE AS IntangibleAssets_GoodWill,
     MORTGAGE_SERVICING_RIGHTS_NONE AS IntangibleAssets_MortgageServicingRights,
     OTHER_INTANGIBLE_ASSETS_NONE AS IntangibleAssets_OtherAssets,
-      NONE_TOTAL_INTANGIBLE_ASSETS AS TotalIntangibleAssets,
+    NONE_TOTAL_INTANGIBLE_ASSETS AS TotalIntangibleAssets,
     CASE 
         WHEN CONCAT(
                 SUBSTRING(NONE_NONE, 1, 6), 
