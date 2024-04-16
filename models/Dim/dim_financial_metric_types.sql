@@ -1,22 +1,82 @@
 {{ config(materialized='table') }}
-
-with source_data as (
-    -- Replace this with the actual extraction from your source table
-    select distinct metric_name, description
-    from {{ ref('Consolidated_financial_highlights') }}  -- Adjust this to your actual source table reference
+ 
+WITH metric_types AS (
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY metric_name) AS metric_type_id,
+        metric_name
+    FROM (
+        VALUES
+            ('Quarters'),
+            ('Total_Assets'),
+            ('Consumer_Loan'),
+            ('CreditCard_Loan'),
+            ('Wholesale_Loan'),
+            ('Total_Loan'),
+            ('NonInterestBearing_Deposits_US'),
+            ('InterestBearing_Deposits_US'),
+            ('NonInterestBearing_Deposits_Non_US'),
+            ('InterestBearing_Deposits_Non_US'),
+            ('TotalDeposits'),
+            ('Long_Term_Debt'),
+            ('CommonStockHolder_Equity'),
+            ('TotalStockHolder_Equity'),
+            ('Loan_Deposit_Ratio'),
+            ('NetRevenue_Reported_Basis'),
+            ('NonInterestRevenue_Reported_Basis'),
+            ('PreProvisionProfit_Reported_Basis'),
+            ('CreditLosses_Reported_Basis'),
+            ('NetIncome_Reported_Basis'),
+            ('NetRevenue_Managed_Basis'),
+            ('NonInterestRevenue_Managed_Basis'),
+            ('PreProvisionProfit_Managed_Basis'),
+            ('CreditLosses_Managed_Basis'),
+            ('NetIncome_Managed_Basis'),
+            ('Basic_NetIncome_EarningsPerShare'),
+            ('Diluted_NetIncome_EarningsPerShare'),
+            ('Basic_AverageShares_EarningsPerShare'),
+            ('Diluted_AverageShares_EarningsPerShare'),
+            ('MarketCapitalization'),
+            ('CommonShares_EndPeriod'),
+            ('BookValuePerShare'),
+            ('Tangible_BookValuePerShare'),
+            ('cashDividendsPerShare'),
+            -- Entries from the second code snippet
+            ('revenue_assetmanagement'),
+            ('revenue_basicearningspershare'),
+            ('revenue_cardincome'),
+            ('revenue_commissions'),
+            ('expense_compensation'),
+            ('incometaxrate'),
+            ('expense_incometax'),
+            ('expense_interest'),
+            ('revenue_interest'),
+            ('revenue_investmentbanking'),
+            ('revenue_investmentsecuritieslosses'),
+            ('expense_lendingdeposit'),
+            ('expense_marketing'),
+            ('revenue_mortgage'),
+            ('expense_incometax'),
+            ('expense_netincome'),
+            ('revenue_netinterest'),
+            ('revenue_noninterest'),
+            ('totalnetrevenue'),
+            ('totalnetexpense'),
+            ('expense_occupancy'),
+            ('expense_other'),
+            ('revenue_otherincome'),
+            ('overheadratio'),
+            ('revenue_principaltransactions'),
+            ('expense_professionalservices'),
+            ('revenue_provisionlosses'),
+            ('returnon_assets'),
+            ('returnon_commonequity'),
+            ('returnon_tangiblecommonequity'),
+            ('quarters'),
+            ('expense_equipment')
+    ) AS t(metric_name)
 )
-
-, ranked_metrics as (
-    select
-        row_number() over (order by metric_name) as metric_type_id,
-        metric_name,
-        description
-    from source_data
-)
-
-select
+ 
+SELECT
     metric_type_id,
-    metric_name as metric_type,
-    description
-from ranked_metrics
-
+    metric_name AS metric_type
+FROM metric_types
