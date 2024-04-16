@@ -1,8 +1,11 @@
 -- models/capital_balance_sheet_items.sql
 
 SELECT
-  NONE_NONE,
-  NONE_NONE_1,
+    CONCAT(
+        SUBSTRING(NONE_NONE, 1, 6), 
+        REPLACE(SUBSTRING(NONE_NONE, 7), ',', ' '), 
+        NONE_NONE_1
+    ) AS Date,
   NONE_CET1_CAPITAL,
   NONE_TIER_1_CAPITAL,
   NONE_TOTAL_CAPITAL,
